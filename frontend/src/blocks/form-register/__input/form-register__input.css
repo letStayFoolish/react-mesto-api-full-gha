@@ -1,0 +1,34 @@
+.form-register__input {
+  box-sizing: border-box;
+  min-height: 27px;
+  min-width: 358px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: calc(17 / 14);
+  color: #fff;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 2px 0 10px;
+  transition: padding .15s ease,box-shadow .3s ease,border-radius .3s ease;
+}
+
+.form-register__input:not(:last-child) {
+  /*margin-bottom: 30px;*/
+}
+
+.form-register__input:focus {
+  outline: none;
+  box-shadow: 0 0 2px 2px #B2FFFF;
+  border-radius: 4px;
+  padding: 4px 0 10px 4px;
+}
+
+@media (max-width: 430px) {
+  .form-register__input {
+    min-width: 260px;
+  }
+}
