@@ -13,14 +13,14 @@ class Api {
   }
 
   // Request to get user information from the server:
-  async getUserInformation() {
-    const response = await fetch(`${this._url}/users/me`, {
-      method: 'GET',
-      credentials: "include",
-      headers: this.headers,
-    });
-    return this._checkResponse(response);
-  }
+  // async getUserInformation() {
+  //   const response = await fetch(`${this._url}/users/me`, {
+  //     method: 'GET',
+  //     credentials: "include",
+  //     headers: this.headers,
+  //   });
+  //   return this._checkResponse(response);
+  // }
 
   // Request to get and render cards from the server:
   async getInitialCards() {

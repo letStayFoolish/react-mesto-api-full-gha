@@ -71,16 +71,9 @@ function App() {
   // As a second argument of useEffect State, we set an empty array '[]', so this shall be called only once as we got in or refresh a page.
   useEffect(() => {
     if (isLoggedIn) {
-      const userInformationPromise = api.getUserInformation();
       const initialCardsPromise = api.getInitialCards();
-      Promise.all([userInformationPromise, initialCardsPromise])
-        .then(([userInformation, cardsInformation]) => {
-          setCurrentUser({
-            ...userInformation,
-            name: userInformation.name,
-            about: userInformation.about,
-            avatar: userInformation.avatar,
-          });
+      initialCardsPromise
+        .then((cardsInformation) => {
           setCards(cardsInformation);
         })
         .catch((error) =>
@@ -92,7 +85,7 @@ function App() {
   }, [isLoggedIn]); // isLoggedIn
   // State to authenticate user's token:
   useEffect(() => {
-    checkToken();
+    checkToken()
     // eslint-disable-next-line
   }, []);
   // --- HANDLER FUNCTIONS ---
@@ -274,7 +267,6 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        // localStorage.setItem("jwt", data.token);
         navigate("/", { replace: true });
         setIsLoggedIn(true);
         setEmailShow(email);
@@ -284,13 +276,18 @@ function App() {
   }
   // Function to keep a user logged-in if his token is already stored:
   const checkToken = () => {
-    // const token = localStorage.getItem("jwt");
     auth
       .getContent()
       .then((data) => {
         if (!data) {
           return;
         }
+        setCurrentUser({
+          ...data,
+          name: data.name,
+          about: data.about,
+          avatar: data.avatar,
+        });
         setIsLoggedIn(true);
         navigate("/", { replace: true });
         setEmailShow(data.email);
