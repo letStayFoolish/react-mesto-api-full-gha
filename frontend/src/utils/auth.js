@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = 'http://localhost:8000';
+// export const BASE_URL = 'https://api.chili.nomoreparties.co';
 
 // Check response from promises:
 function checkResponse(response) {
@@ -7,6 +8,7 @@ function checkResponse(response) {
   }
   return Promise.resolve(response.json());
 }
+
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -15,7 +17,7 @@ export const register = (email, password) => {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({email, password}),
   }).then(checkResponse);
 };
 export const authorize = (email, password) => {
@@ -26,7 +28,7 @@ export const authorize = (email, password) => {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({email, password}),
   }).then(checkResponse);
 };
 

@@ -1,5 +1,5 @@
 class Api {
-  constructor({ url, headers }) {
+  constructor({url, headers}) {
     this._url = url;
     this.headers = headers;
   }
@@ -33,7 +33,7 @@ class Api {
   }
 
   // Request to edit profile (PATCH):
-  async sendProfileInformation({ name, about }) {
+  async sendProfileInformation({name, about}) {
     const response = await fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       credentials: "include",
@@ -47,7 +47,7 @@ class Api {
   }
 
   // Request to post cards on server:
-  async addNewCard({ name, link }) {
+  async addNewCard({name, link}) {
     const response = await fetch(`${this._url}/cards`, {
       method: 'POST',
       credentials: "include",
@@ -79,6 +79,7 @@ class Api {
     });
     return this._checkResponse(response);
   }
+
   // Request to remove likes from cards on server:
   async removeLikes(cardId) {
     const response = await fetch(`${this._url}/cards/${cardId}/likes`, {
@@ -88,8 +89,9 @@ class Api {
     });
     return this._checkResponse(response);
   }
+
   // Request to change avatar image on server:
-  async changeAvatarImage({ avatar }) {
+  async changeAvatarImage({avatar}) {
     const response = await fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       credentials: "include",
@@ -103,6 +105,7 @@ class Api {
 }
 
 const api = new Api({
+  // url: 'https://api.chili.nomoreparties.co',
   url: 'http://localhost:8000',
   headers: {
     authorization: '1513e1ce-293c-41a3-bbe1-1734a1dc9636',

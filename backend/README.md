@@ -156,6 +156,7 @@ Run app:
 
 - [Checklist 13](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist_13.pdf).
 - [Checklist 14](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist_14.pdf).
+- [Checklist 15](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist_15.pdf).
 
 [//]: # (## Deploy)
 

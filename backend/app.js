@@ -15,7 +15,7 @@ mongoose.connect(DB_ADDRESS, {
 });
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://chili.nomoreparties.co/sign-in'],
   credentials: true,
 }))
 app.use(helmet());
