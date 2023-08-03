@@ -71,9 +71,16 @@ function App() {
   // As a second argument of useEffect State, we set an empty array '[]', so this shall be called only once as we got in or refresh a page.
   useEffect(() => {
     if (isLoggedIn) {
+      const userInformationPromise = api.getUserInformation();
       const initialCardsPromise = api.getInitialCards();
-      initialCardsPromise
-        .then((cardsInformation) => {
+      Promise.all([userInformationPromise, initialCardsPromise])
+        .then(([userInformation, cardsInformation]) => {
+          setCurrentUser({
+            ...userInformation,
+            name: userInformation.name,
+            about: userInformation.about,
+            avatar: userInformation.avatar,
+          });
           setCards(cardsInformation);
         })
         .catch((error) =>
@@ -82,11 +89,10 @@ function App() {
           )
         );
     }
-  }, [isLoggedIn]); // isLoggedIn
+  }, [isLoggedIn]);
   // State to authenticate user's token:
   useEffect(() => {
     checkToken()
-    // eslint-disable-next-line
   }, []);
   // --- HANDLER FUNCTIONS ---
   // Handler-function to toggle true/false on popup for profile editing, so it opens or closes:
@@ -269,7 +275,7 @@ function App() {
       .then((data) => {
         navigate("/", { replace: true });
         setIsLoggedIn(true);
-        setEmailShow(email);
+        setEmailShow({email: data.email});
       })
       .catch((error) => console.error(`Error: ${error.message}`))
       .finally(() => setIsLoggingIn(false));
@@ -282,12 +288,6 @@ function App() {
         if (!data) {
           return;
         }
-        setCurrentUser({
-          ...data,
-          name: data.name,
-          about: data.about,
-          avatar: data.avatar,
-        });
         setIsLoggedIn(true);
         navigate("/", { replace: true });
         setEmailShow(data.email);
