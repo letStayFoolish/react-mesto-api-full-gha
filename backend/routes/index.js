@@ -7,6 +7,13 @@ const signupRoutes = require('./signup');
 const signoutRoutes = require('./signout');
 const loginRoutes = require('./login');
 const checkAuthentication = require('../middlewares/auth');
+
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 // Before homepage login or sign-up:
 router.use('/', loginRoutes);
 router.use('/', signupRoutes);

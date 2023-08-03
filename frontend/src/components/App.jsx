@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -12,7 +12,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmOnDelete from "./ConfirmOnDelete";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/api";
 import * as auth from "../utils/auth";
 
@@ -100,23 +100,28 @@ function App() {
   function handleEditProfilePopupOpen() {
     setIsEditProfilePopupOpen(true);
   }
+
   // Handler-function to toggle true/false on popup to add new place, so it opens or closes:
   function handleAddPlacePopupOpen() {
     setIsAddPlacePopupOpen(true);
   }
+
   // Handler-function to toggle true/false on popup to change profile image, so it opens or closes:
   function handleEditAvatarPopupOpen() {
     setIsEditAvatarPopupOpen(true);
   }
+
   // Handler-function to toggle true/false on popup, to confirm while removing a card, so it opens or closes:
   function handleConfirmationPopupOpen(card) {
     setRemovedCard(card);
     setIsConfirmationPopupOpen(true);
   }
+
   // Handler-function to open info tooltip popup after pressing "register"-button:
   function handleInfoTooltipPopupOpen() {
     setIsInfoTooltipPopupOpen(true);
   }
+
   // Handler-function to add/remove like/s on card/s, requesting and receiving response from API:
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((like) => like === currentUser._id);
@@ -156,6 +161,7 @@ function App() {
     setIsConfirmationPopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
   }
+
   // --- ON SIGN-OUT ---
   // Handler-function on sign-out button pressing:
   function handleSignOut() {
@@ -164,11 +170,12 @@ function App() {
       .logout()
       .then(() => {
         setIsLoggedIn(false);
-        navigate("/sign-in", { replace: true });
+        navigate("/sign-in", {replace: true});
         setEmailShow("");
       })
       .catch((err) => console.error(err))
   }
+
   // --- INTERACTION WITH API SECTION ---
   // Handler-function to remove card/s, requesting and receiving response from API:
   const handleCardDelete = (card) => {
@@ -188,8 +195,9 @@ function App() {
       )
       .finally(() => setIsSavingConfirmationPopup(false));
   };
+
   // Handler-function to change user's name and description on submit
-  function handleUpdateUser({ name, about }) {
+  function handleUpdateUser({name, about}) {
     setIsSavingEditProfilePopup(true);
     api
       .sendProfileInformation({
@@ -198,7 +206,7 @@ function App() {
       })
       .then(() => {
         setCurrentUser((prevData) => {
-          return { ...prevData, name, about };
+          return {...prevData, name, about};
         });
         closeAllPopups();
       })
@@ -209,14 +217,15 @@ function App() {
       )
       .finally(() => setIsSavingEditProfilePopup(false));
   }
+
   // Handler-function to update user's avatar
-  function handleUpdateAvatar({ avatar }) {
+  function handleUpdateAvatar({avatar}) {
     setIsSavingEditAvatarPopup(true);
     api
-      .changeAvatarImage({ avatar })
+      .changeAvatarImage({avatar})
       .then(() => {
         setCurrentUser((prevData) => {
-          return { ...prevData, avatar };
+          return {...prevData, avatar};
         });
         closeAllPopups();
       })
@@ -227,11 +236,12 @@ function App() {
       )
       .finally(() => setIsSavingEditAvatarPopup(false));
   }
+
   // Handler-function to add new place on submit
-  function handleAddPlaceSubmit({ name, link }) {
+  function handleAddPlaceSubmit({name, link}) {
     setIsSavingAddPlacePopup(true);
     api
-      .addNewCard({ name, link })
+      .addNewCard({name, link})
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -243,8 +253,9 @@ function App() {
       )
       .finally(() => setIsSavingAddPlacePopup(false));
   }
+
   // Function to send new user's email and password to API, so user could move to log-in page on a successful registration
-  function onSignup({ email, password }) {
+  function onSignup({email, password}) {
     if (!email || !password) {
       // window.alert('Please fill in all fields')
       return;
@@ -253,7 +264,7 @@ function App() {
     auth
       .register(email, password)
       .then(() => {
-        navigate("/sign-in", { replace: true });
+        navigate("/sign-in", {replace: true});
         setOnSuccess(true);
       })
       .catch((error) => {
@@ -265,8 +276,9 @@ function App() {
         setIsSigningUp(false);
       });
   }
+
   // Function to make user get logged-in
-  function onSignIn({ email, password }) {
+  function onSignIn({email, password}) {
     if (!email || !password) {
       return;
     }
@@ -275,13 +287,14 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         // localStorage.setItem("jwt", data.token);
-        navigate("/", { replace: true });
+        navigate("/", {replace: true});
         setIsLoggedIn(true);
         setEmailShow(email);
       })
       .catch((error) => console.error(`Error: ${error.message}`))
       .finally(() => setIsLoggingIn(false));
   }
+
   // Function to keep a user logged-in if his token is already stored:
   const checkToken = () => {
     // const token = localStorage.getItem("jwt");
@@ -292,7 +305,7 @@ function App() {
           return;
         }
         setIsLoggedIn(true);
-        navigate("/", { replace: true });
+        navigate("/", {replace: true});
         setEmailShow(data.email);
       })
       .catch((error) => {
@@ -305,7 +318,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="wrapper">
-          <Header emailShow={emailShow} handleSignOut={handleSignOut} />
+          <Header emailShow={emailShow} handleSignOut={handleSignOut}/>
           <Routes>
             <Route
               path="/"
@@ -327,7 +340,7 @@ function App() {
               path="/sign-up"
               element={
                 isLoggedIn ? (
-                  <Navigate to="/" />
+                  <Navigate to="/"/>
                 ) : (
                   <Register
                     onClose={closeAllPopups}
@@ -341,7 +354,7 @@ function App() {
               path="/sign-in"
               element={
                 isLoggedIn ? (
-                  <Navigate to="/" />
+                  <Navigate to="/"/>
                 ) : (
                   <Login
                     onClose={closeAllPopups}
@@ -353,10 +366,10 @@ function App() {
             />
             <Route
               path="*"
-              element={<Navigate to={!isLoggedIn ? "/sign-in" : "/"} />}
+              element={<Navigate to={!isLoggedIn ? "/sign-in" : "/"}/>}
             />
           </Routes>
-          <Footer />
+          <Footer/>
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
@@ -382,7 +395,7 @@ function App() {
             card={removedCard}
             onCardDelete={handleCardDelete}
           />
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
           <InfoTooltip
             isOpen={isInfoTooltipPopupOpen}
             onClose={closeAllPopups}

@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET_KEY } = require('../config');
+const { NODE_ENV, JWT_SECRET } = process.env;
 const RequestUnauthorized = require('../error_handlers/request-unauthorized-401');
 
 function generateToken(payload) {
-  return jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '7d' });
+  return jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', { expiresIn: '7d' });
+  // return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 }
 
 function checkToken(token) {
@@ -13,7 +14,7 @@ function checkToken(token) {
 
   // eslint-disable-next-line no-useless-catch
   try {
-    return jwt.verify(token, JWT_SECRET_KEY);
+    return jwt.verify(token, JWT_SECRET);
   } catch (err) {
     throw err;
   }
