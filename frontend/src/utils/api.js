@@ -105,8 +105,8 @@ class Api {
 }
 
 const api = new Api({
-  // url: 'https://api.chili.nomoreparties.co',
-  url: 'http://localhost:8000',
+  url: 'https://api.chili.nomoreparties.co',
+  // url: 'http://localhost:8000',
   headers: {
     authorization: '1513e1ce-293c-41a3-bbe1-1734a1dc9636',
     'Content-Type': 'application/json',
