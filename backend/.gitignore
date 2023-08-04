@@ -2,7 +2,9 @@
 logs
 *.log
 npm-debug.log*
+# .env file
 .env
+*.env
 # Dependency directory
 node_modules
 http-tests
