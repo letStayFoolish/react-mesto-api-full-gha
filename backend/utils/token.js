@@ -14,7 +14,7 @@ function checkToken(token) {
 
   // eslint-disable-next-line no-useless-catch
   try {
-    return jwt.verify(token, JWT_SECRET);
+    return jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key');
   } catch (err) {
     throw err;
   }

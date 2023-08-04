@@ -28,9 +28,9 @@ app.use(helmet());
 app.use(cookies());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(limiter);
 // Collecting requests logger
 app.use(requestLogger)
+app.use(limiter);
 // Access to all routes:
 app.use(routes);
 // Collecting errors logger

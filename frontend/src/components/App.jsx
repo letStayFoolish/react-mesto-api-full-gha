@@ -286,18 +286,19 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        // localStorage.setItem("jwt", data.token);
         navigate("/", {replace: true});
         setIsLoggedIn(true);
         setEmailShow(email);
       })
-      .catch((error) => console.error(`Error: ${error.message}`))
+      .catch((error) => {
+        handleInfoTooltipPopupOpen();
+        console.error(`Error: ${error.message}`)
+      })
       .finally(() => setIsLoggingIn(false));
   }
 
   // Function to keep a user logged-in if his token is already stored:
   const checkToken = () => {
-    // const token = localStorage.getItem("jwt");
     auth
       .getContent()
       .then((data) => {
